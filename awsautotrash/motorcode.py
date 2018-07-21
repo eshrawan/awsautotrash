@@ -12,16 +12,16 @@ from time import sleep
 
 GPIO.setmode(GPIO.BCM)
 
-# Set relay pins as output
+# Setting relay pins as output
 GPIO.setup(18, GPIO.OUT)
 
 while (True):
-
-    # Turn relay ON
+ 
+    # Turning relay ON
     GPIO.output(18, GPIO.HIGH)
     # Sleep for 5 seconds
     sleep(5)
-    # Turn all relay OFF
+    # Turning relay OFF
     GPIO.output(18, GPIO.LOW)
     # Sleep for 5 seconds
     sleep(5)
