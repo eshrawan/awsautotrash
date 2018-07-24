@@ -20,8 +20,9 @@ while (True):
     # Turning relay ON
     GPIO.output(18, GPIO.HIGH)
     # Sleep for 5 seconds
-    sleep(5)
+    sleep(0.5)
     # Turning relay OFF
     GPIO.output(18, GPIO.LOW)
     # Sleep for 5 seconds
-    sleep(5)
+    sleep(0.5)
+GPIO.cleanup()
