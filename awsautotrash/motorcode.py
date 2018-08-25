@@ -10,19 +10,39 @@
 import RPi.GPIO as GPIO
 from time import sleep
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 
 # Setting relay pins as output
-GPIO.setup(18, GPIO.OUT)
+#GPIO.setup(18, GPIO.OUT)
 
-while (True):
+#while (True):
  
     # Turning relay ON
-    GPIO.output(18, GPIO.HIGH)
+    #GPIO.output(18, GPIO.HIGH)
     # Sleep for 5 seconds
-    sleep(0.5)
+    #sleep(0.5)
     # Turning relay OFF
-    GPIO.output(18, GPIO.LOW)
+    #GPIO.output(18, GPIO.LOW)
     # Sleep for 5 seconds
-    sleep(0.5)
-GPIO.cleanup()
+    #sleep(0.5)
+#GPIO.cleanup()
+
+GPIO.setup(19, GPIO.OUT)
+GPIO.setup(21, GPIO.OUT)
+GPIO.setup(23, GPIO.OUT)
+GPIO.output(23, GPIO.HIGH)
+
+def forward():
+	GPIO.output(19, GPIO.HIGH)
+	sleep(2)
+	GPIO.output(19, GPIO.LOW)
+
+def reverse():
+	GPIO.output(21, GPIO.HIGH)
+	sleep(2)
+	GPIO.output(21, GPIO.LOW)
+
+while True:
+	forward()
+	sleep(1)
+	reverse()

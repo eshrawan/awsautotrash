@@ -5,7 +5,7 @@ import datetime
 import l293d.driver as l293d
 import RPi.GPIO as GPIO
 from time import sleep
-from awsautotrash import class_dictionary
+import classdictionary
 servo_signal = 12
 motor_signal1 = 18
 motor_signal2 = 16
@@ -13,16 +13,18 @@ motor_signal3 = 22
 object_sensor = 11
 
 def FindImageType(example):
-    if example in class_dictionary:
-        type = class_dictionary[example]
+    clas = classdictionary.class_dictionary()
+    if example in clas:
+        type = clas[example]
+        print(type)
         if type == "c":
-            RunMotor("c")
+            #RunMotor("c")
             return("C")
         elif type == "r":
-            RunMotor("r")
+            #RunMotor("r")
             return("R")
     else:
-        RunServo()
+        #RunServo()
         return("N")
 
 def RunMotor(typetry):
@@ -69,8 +71,14 @@ def MasterFunction():
     with open(filename, 'rb') as image_file:
         image = image_file.read()
         response = client.detect_labels(Image = {'Bytes':image})
-        top_response = response[0]
-        FindImageType(top_response)
+        list_of_response = response["Labels"]
+        image_types = []
+        for label in list_of_response[:3]:
+        	print(label["Name"])
+        	top_response = label["Name"]
+        	a = FindImageType(top_response)
+        	image_types.append(a)
+        print(image_types)
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(object_sensor, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
@@ -79,7 +87,10 @@ GPIO.setup(motor_signal1, GPIO.OUT)
 GPIO.setup(motor_signal2, GPIO.OUT)
 GPIO.setup(motor_signal3, GPIO.OUT)
 
-while True:
-    object_sensor_state = GPIO.input(object_sensor)
-    if object_sensor_state == 1:
-        MasterFunction()
+#while True:
+    #object_sensor_state = GPIO.input(object_sensor)
+    #if object_sensor_state == 1:
+        #MasterFunction()
+object_sensor_state = GPIO.input(object_sensor)
+if object_sensor_state == 1:
+	MasterFunction()
