@@ -6,6 +6,11 @@ import l293d.driver as l293d
 import RPi.GPIO as GPIO
 from time import sleep
 from awsautotrash import class_dictionary
+servo_signal = 12
+motor_signal1 = 18
+motor_signal2 = 16
+motor_signal3 = 22
+object_sensor = 11
 
 def FindImageType(example):
     if example in class_dictionary:
@@ -21,28 +26,21 @@ def FindImageType(example):
         return("N")
 
 def RunMotor(typetry):
-
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(18, GPIO.OUT)
-    GPIO.setup(16, GPIO.OUT)
-    GPIO.setup(22, GPIO.OUT)
     if typetry == "c":
         print("turning clockwise")
-        GPIO.output(16,GPIO.HIGH)
-        GPIO.output(18,GPIO.LOW)
-        GPIO.output(22,GPIO.HIGH)
+        GPIO.output(motor_signal2,GPIO.HIGH)
+        GPIO.output(motor_signal1,GPIO.LOW)
+        GPIO.output(motor_signal3,GPIO.HIGH)
     else:
         print("turning counter-clockwise")
-        GPIO.output(16,GPIO.LOW)
-        GPIO.output(18,GPIO.HIGH)
-        GPIO.output(22,GPIO.HIGH)
+        GPIO.output(motor_signal2,GPIO.LOW)
+        GPIO.output(motor_signal1,GPIO.HIGH)
+        GPIO.output(motor_signal3,GPIO.HIGH)
     GPIO.cleanup()
 
 
 def RunServo():
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setup(12, GPIO.OUT)
-    p = GPIO.PWM(12, 50)
+    p = GPIO.PWM(servo_signal, 50)
     p.start(7.5)
     try:
         print("running servo")
@@ -65,8 +63,8 @@ def ClickPicture():
 
     return image_name
 
+client = boto3.client('rekognition')
 def MasterFunction():
-    client = boto3.client('rekognition')
     filename = ClickPicture()
     with open(filename, 'rb') as image_file:
         image = image_file.read()
@@ -74,5 +72,14 @@ def MasterFunction():
         top_response = response[0]
         FindImageType(top_response)
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(object_sensor, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(servo_signal, GPIO.OUT)
+GPIO.setup(motor_signal1, GPIO.OUT)
+GPIO.setup(motor_signal2, GPIO.OUT)
+GPIO.setup(motor_signal3, GPIO.OUT)
+
 while True:
-    MasterFunction()
+    object_sensor_state = GPIO.input(object_sensor)
+    if object_sensor_state == 1:
+        MasterFunction()
