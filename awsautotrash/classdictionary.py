@@ -438,7 +438,7 @@ def class_dictionary():
                         'magnetic compass': "r",
                         'binoculars, field glasses, opera glasses': "r",
                         'projector': "r",
-                        'sunglasses, glasses, shades': "r",
+                        'glasses, glasses, shades': "r",
                         "loupe, jeweler's loupe": "r",
                         'radio telescope, radio reflector': "r",
                         'bow': "r",
