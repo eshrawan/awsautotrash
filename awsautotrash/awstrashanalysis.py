@@ -76,7 +76,7 @@ def MasterFunction():
         for label in list_of_response[:3]:
         	print(label["Name"])
         	top_response = label["Name"]
-        	a = FindImageType(top_response)
+        	a = FindImageType(top_response.lower())
         	image_types.append(a)
         print(image_types)
 
