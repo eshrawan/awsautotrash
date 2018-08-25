@@ -1870,7 +1870,7 @@ def class_dictionary():
 
 def TestFuntion():
 	clas = class_dictionary()
-	example = 'sunglasses'
+	example = 'glasses'
 	type = clas[example]
 	print(type)
 		#print("N")
