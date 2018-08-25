@@ -1000,3 +1000,15 @@ def class_dictionary():
                         'briard': "c",
                         'Border terrier': "c"}
     return class_dictionary
+
+def TestFuntion():
+	#clas = class_dictionary()
+	clas = {'glasses, sunglasses, dark glasses': "r"}
+	print(clas)
+	example = 'sunglasses'
+	type = clas[example]
+	print(type)
+		#print("N")
+
+TestFuntion()
+

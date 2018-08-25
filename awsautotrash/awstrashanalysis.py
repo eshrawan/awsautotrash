@@ -13,6 +13,7 @@ motor_signal3 = 22
 object_sensor = 11
 
 def FindImageType(example):
+    print(example)
     clas = classdictionary.class_dictionary()
     if example in clas:
         type = clas[example]
