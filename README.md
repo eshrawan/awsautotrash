@@ -4,6 +4,10 @@ The municipality in my city, Mumbai, India, recently introduced a legislation ma
 
 Each complex within the city has been given the responsibility of composting their own wet waste for domestic use. After investing in the compost machines, because of faulty segregation, the machines have to be constantly repaired. The complex also hired three workers who individually sort through all the waste that the complex produces so that the heavier loss of fixing the machine is not incurred.
 
+
+      awsautotrash/PHOTO-2018-04-16-19-25-48.jpg
+    
+
 At around this time, I was studying building machine learning skills using online services such as TensorFlow and AWS Rekognition. Intially, I began creating the software for recognition of images using TensorFlow but it presented a huge problem. I wanted my setup to be cost effective, and hence I had chosen the RaspberryPi3 to host the code, but it took over 30 seconds for each image to process, and had no scope of increasing density of objects for recognition upon implementation.
 
 (for trial Tensorflow implementation see https://github.com/eshrawan/trash-sorting)
