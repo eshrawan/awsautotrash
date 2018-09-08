@@ -33,10 +33,14 @@ def FindImageType(example):
 def RunMotor(typetry):
     if typetry == "c":
         print("turning clockwise")
+        pwm=GPIO.PWM(04,100)
+        pwm.start(50)
         GPIO.output(motor_signal2,GPIO.HIGH)
         GPIO.output(motor_signal1,GPIO.LOW)
         GPIO.output(motor_signal3,GPIO.HIGH)
     else:
+        pwm=GPIO.PWM(04,100)
+        pwm.start(50)
         print("turning counter-clockwise")
         GPIO.output(motor_signal2,GPIO.LOW)
         GPIO.output(motor_signal1,GPIO.HIGH)
