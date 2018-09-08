@@ -15,7 +15,7 @@ numberOfLabels = 10
 numberOfR = 0
 numberOfC = 0
 numberOfN = 0
-objectDectected = False
+objectDetected = False
 
 def FindImageType(example):
     print(example)
@@ -33,14 +33,14 @@ def FindImageType(example):
 def RunMotor(typetry):
     if typetry == "c":
         print("turning clockwise")
-        pwm=GPIO.PWM(29,100)
-        pwm.start(50)
+        #pwm=GPIO.PWM(29,100)
+        #pwm.start(50)
         GPIO.output(motor_signal2,GPIO.HIGH)
         GPIO.output(motor_signal1,GPIO.LOW)
         GPIO.output(motor_signal3,GPIO.HIGH)
     else:
-        pwm=GPIO.PWM(29,100)
-        pwm.start(50)
+        #pwm=GPIO.PWM(29,100)
+        #pwm.start(50)
         print("turning counter-clockwise")
         GPIO.output(motor_signal2,GPIO.LOW)
         GPIO.output(motor_signal1,GPIO.HIGH)
@@ -106,7 +106,7 @@ GPIO.setup(motor_signal3, GPIO.OUT)
 
 while True:
 
-    object_sensor_state_first = GPIO.input(obect_sensor)
+    object_sensor_state_first = GPIO.input(object_sensor)
     time.sleep(0.05)
     object_sensor_state_second = GPIO.input(object_sensor)
 
