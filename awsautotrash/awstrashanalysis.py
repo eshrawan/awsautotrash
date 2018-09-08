@@ -81,8 +81,8 @@ def MasterFunction():
         list_of_response = response["Labels"]
         image_types = []
         for label in list_of_response[:numberOfLabels]:
-        	top_response = label["Name"]
-        	trashCategory = FindImageType(top_response.lower())
+            top_response = label["Name"]
+            trashCategory = FindImageType(top_response.lower())
             if trashCategory == "C":
                 numberOfC = numberOfC+1
             elif trashCategory == "R":
@@ -112,7 +112,7 @@ while True:
     object_sensor_state = 0 #default state
     if object_sensor_state_first == object_sensor_state_second:
         object_sensor_state = object_sensor_state_first
-    if object_sensor_state == 1 and objectDetected = False:
+    if object_sensor_state == 1 and objectDetected == False:
         objectDetected = True
         MasterFunction()
     elif object_sensor_state == 0:
