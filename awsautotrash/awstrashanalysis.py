@@ -82,13 +82,14 @@ def MasterFunction():
         image_types = []
         for label in list_of_response[:numberOfLabels]:
             top_response = label["Name"]
-            trashCategory = FindImageType(top_response.lower())
-            if trashCategory == "C":
-                numberOfC = numberOfC+1
-            elif trashCategory == "R":
-                numberOfR = numberOfR+1
-            else:
-                numberOfN = numberOfN+1
+            if label["Confidence"] >= 70.0:
+                 trashCategory = FindImageType(top_response.lower())
+                 if trashCategory == "C":
+                     numberOfC = numberOfC+1
+                 elif trashCategory == "R":
+                     numberOfR = numberOfR+1
+                 else:
+                     numberOfN = numberOfN+1
         if numberOfR > numberOfC and numberOfR > numberOfN:
             RunMotor("r")
         elif numberOfC > numberOfR and numberOfC > numberOfN:
