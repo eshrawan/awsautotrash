@@ -12,9 +12,6 @@ motor_signal2 = 16
 motor_signal3 = 22
 object_sensor = 11
 numberOfLabels = 10
-numberOfR = 0
-numberOfC = 0
-numberOfN = 0
 objectDetected = False
 
 def FindImageType(example):
@@ -74,6 +71,9 @@ def ClickPicture():
 
 client = boto3.client('rekognition')
 def MasterFunction():
+    numberOfR = 0
+    numberOfC = 0
+    numberOfN = 0
     filename = ClickPicture()
     with open(filename, 'rb') as image_file:
         image = image_file.read()
