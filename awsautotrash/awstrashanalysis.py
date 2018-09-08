@@ -100,7 +100,14 @@ GPIO.setup(motor_signal2, GPIO.OUT)
 GPIO.setup(motor_signal3, GPIO.OUT)
 
 while True:
-    object_sensor_state = GPIO.input(object_sensor)
+
+    object_sensor_state_first = GPIO.input(obect_sensor)
+    time.sleep(0.05)
+    object_sensor_state_second = GPIO.input(object_sensor)
+
+    object_sensor_state = 0 #default state
+    if object_sensor_state_first == object_sensor_state_second:
+        object_sensor_state = object_sensor_state_first
     if object_sensor_state == 1 and objectDetected = False:
         objectDetected = True
         MasterFunction()
