@@ -11,6 +11,11 @@ motor_signal1 = 18
 motor_signal2 = 16
 motor_signal3 = 22
 object_sensor = 11
+numberOfLabels = 10
+numberOfR = 0
+numberOfC = 0
+numberOfN = 0
+objectDectected = False
 
 def FindImageType(example):
     print(example)
@@ -19,13 +24,10 @@ def FindImageType(example):
         type = clas[example]
         print(type)
         if type == "c":
-            #RunMotor("c")
             return("C")
         elif type == "r":
-            #RunMotor("r")
             return("R")
     else:
-        #RunServo()
         return("N")
 
 def RunMotor(typetry):
@@ -74,12 +76,21 @@ def MasterFunction():
         response = client.detect_labels(Image = {'Bytes':image})
         list_of_response = response["Labels"]
         image_types = []
-        for label in list_of_response[:3]:
-        	print(label["Name"])
+        for label in list_of_response[:numberOfLabels]:
         	top_response = label["Name"]
-        	a = FindImageType(top_response.lower())
-        	image_types.append(a)
-        print(image_types)
+        	trashCategory = FindImageType(top_response.lower())
+            if trashCategory == "C":
+                numberOfC = numberOfC+1
+            elif trashCategory == "R":
+                numberOfR = numberOfR+1
+            else:
+                numberOfN = numberOfN+1
+        if numberOfR > numberOfC and numberOfR > numberOfN:
+            RunMotor("r")
+        elif numberOfC > numberOfR and numberOfC > numberOfN:
+            RunMotor("c")
+        else:
+            RunServo()
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(object_sensor, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
@@ -88,10 +99,10 @@ GPIO.setup(motor_signal1, GPIO.OUT)
 GPIO.setup(motor_signal2, GPIO.OUT)
 GPIO.setup(motor_signal3, GPIO.OUT)
 
-#while True:
-    #object_sensor_state = GPIO.input(object_sensor)
-    #if object_sensor_state == 1:
-        #MasterFunction()
-object_sensor_state = GPIO.input(object_sensor)
-if object_sensor_state == 1:
-	MasterFunction()
+while True:
+    object_sensor_state = GPIO.input(object_sensor)
+    if object_sensor_state == 1 and objectDetected = False:
+        objectDetected = True
+        MasterFunction()
+    elif object_sensor_state == 0:
+        objectDetected= False
